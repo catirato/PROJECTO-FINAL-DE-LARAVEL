@@ -33,6 +33,6 @@ COPY render-apache.conf /etc/apache2/sites-available/000-default.conf
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-EXPOSE 10000
+EXPOSE 80
 
 CMD ["/usr/local/bin/start.sh"]
