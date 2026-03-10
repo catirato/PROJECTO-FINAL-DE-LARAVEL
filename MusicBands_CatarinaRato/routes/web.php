@@ -5,6 +5,15 @@ use App\Http\Controllers\BandController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\DashboardController;
 
+use Illuminate\Http\Request;
+
+Route::get('/session-test', function (Request $request) {
+    $count = $request->session()->get('count', 0);
+    $count++;
+    $request->session()->put('count', $count);
+
+    return "Session count: {$count}";
+});
 /*
 |--------------------------------------------------------------------------
 | Página inicial
@@ -90,7 +99,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 */
 Route::resource('bands', BandController::class)
     ->only(['index', 'show']);
-    
+
 /*
 |--------------------------------------------------------------------------
 | Página 404 personalizada
