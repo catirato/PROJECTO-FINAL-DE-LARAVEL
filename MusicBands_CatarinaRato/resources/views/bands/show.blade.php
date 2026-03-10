@@ -23,7 +23,7 @@
 
         {{-- IMAGEM DO ÁLBUM --}}
         @if($album->image)
-            <img src="{{ asset('storage/'.$album->image) }}"
+            <img src="{{ Storage::url($album->image) }}"
                  width="80"
                  class="me-3">
         @endif

@@ -13,7 +13,7 @@
             <tr>
                 <td>
                     @if($album->image)
-                        <img src="{{ asset('storage/'.$album->image) }}" width="80">
+                        <img src="{{ Storage::url($album->image) }}" width="80">
                     @else
                         Sem imagem
                     @endif

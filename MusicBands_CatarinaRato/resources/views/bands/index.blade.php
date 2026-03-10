@@ -29,7 +29,7 @@
             <tr>
                 <td>
                     @if($band->photo)
-                        <img src="{{ asset('storage/'.$band->photo) }}" width="80">
+                        <img src="{{ Storage::url($band->photo) }}" width="80">
                     @else
                         —
                     @endif

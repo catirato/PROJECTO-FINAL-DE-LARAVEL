@@ -15,6 +15,7 @@ mkdir -p bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 
+php artisan storage:link --force
 php artisan optimize:clear
 php artisan migrate --force
 php artisan db:seed --force
