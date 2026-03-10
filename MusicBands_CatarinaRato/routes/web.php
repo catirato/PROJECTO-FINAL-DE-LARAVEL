@@ -5,8 +5,7 @@ use App\Http\Controllers\BandController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\DashboardController;
 
-use Illuminate\Http\Request;
-
+/*
 |--------------------------------------------------------------------------
 | Página inicial
 |--------------------------------------------------------------------------
