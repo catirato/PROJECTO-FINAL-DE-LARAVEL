@@ -8,6 +8,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-php artisan migrate --force
+ls -l /etc/secrets && php -r "var_dump(file_exists('/etc/secrets/ca.pem'));"
 
 apache2-foreground
