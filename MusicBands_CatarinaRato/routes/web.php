@@ -7,14 +7,6 @@ use App\Http\Controllers\DashboardController;
 
 use Illuminate\Http\Request;
 
-Route::get('/session-test', function (Request $request) {
-    $count = $request->session()->get('count', 0);
-    $count++;
-    $request->session()->put('count', $count);
-
-    return "Session count: {$count}";
-});
-/*
 |--------------------------------------------------------------------------
 | Página inicial
 |--------------------------------------------------------------------------
