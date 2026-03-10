@@ -6,7 +6,6 @@ services:
     dockerfilePath: ./Dockerfile
     autoDeploy: true
     healthCheckPath: /
-    preDeployCommand: php artisan migrate --force
     envVars:
       - key: APP_ENV
         value: production
