@@ -3,7 +3,7 @@ services:
     name: musicbands
     runtime: docker
     plan: free
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./Dockerfile.render
     autoDeploy: true
     healthCheckPath: /
     envVars:
@@ -21,6 +21,8 @@ services:
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
+      - key: RUN_DB_SEED
+        value: "false"
       - key: LOG_LEVEL
         value: error
       - key: DB_CONNECTION
@@ -37,6 +39,8 @@ services:
         sync: false
       - key: MYSQL_ATTR_SSL_CA
         value: /etc/secrets/ca.pem
+      - key: MYSQL_ATTR_SSL_VERIFY_SERVER_CERT
+        value: "false"
       - key: SESSION_DRIVER
         value: database
       - key: SESSION_SECURE_COOKIE

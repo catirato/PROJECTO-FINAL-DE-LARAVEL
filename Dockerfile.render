@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY composer.json composer.lock ./
 RUN composer install \
+    --no-dev \
     --no-interaction \
     --prefer-dist \
     --optimize-autoloader \
@@ -21,28 +22,35 @@ COPY public public
 COPY vite.config.js ./
 RUN npm run build
 
-FROM php:8.4-fpm
+FROM php:8.4-apache
 
 RUN apt-get update && apt-get install -y \
     git \
-    curl \
     unzip \
-    zip \
+    curl \
+    libzip-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    libicu-dev \
+    default-mysql-client \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif bcmath intl zip \
+    && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 COPY . .
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=frontend /app/public/build ./public/build
-COPY docker/app/start.sh /usr/local/bin/docker-start.sh
 
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-RUN chmod +x /usr/local/bin/docker-start.sh
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage bootstrap/cache
 
-CMD ["/usr/local/bin/docker-start.sh"]
+COPY render-apache.conf /etc/apache2/sites-available/000-default.conf
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+EXPOSE 80
+
+CMD ["/usr/local/bin/start.sh"]
